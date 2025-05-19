@@ -1,0 +1,111 @@
+menu = {
+    "savory": {
+        "pasta": 40,
+        "nachos": 50,
+        "tacos": 60,
+        "pizza": 70,
+        "fries": 30
+    },
+    "desserts": {
+        "ice cream": 40,
+        "cake": 50,
+        "brownie": 60,
+        "donut": 30,
+        "pudding": 45
+    },
+    "beverages": {
+        "diet coke": 30,
+        "mirinda": 20,
+        "coke": 50,
+        "pina colada": 60,
+        "sprite": 35
+    }
+}
+
+print("Welcome to Rev's Restro")
+print("Categories available: Savory, Desserts, Beverages")
+
+ordered_items = []
+grand_total = 0
+
+category_map = {"1": "savory", "2": "desserts", "3": "beverages"}
+
+while True:
+    print("\nMenu Categories:")
+    print("1. Savory")
+    print("2. Desserts")
+    print("3. Beverages")
+
+    choice = input("Choose a category by number (1-3): ").strip()
+    if choice not in category_map:
+        print("Invalid category. Please try again.")
+        continue
+
+    category = category_map[choice]
+
+    print(f"\n{category.capitalize()} Menu:")
+    for item, price in menu[category].items():
+        print(f"- {item} : Rs {price}")
+
+    item = input("Enter the item you want to order (or type 'back' to reselect category): ").lower().strip()
+    if item == "back":
+        continue
+
+    if item in menu[category]:
+        price = menu[category][item]
+        ordered_items.append((item, price))
+        grand_total += price
+        print(f"{item.title()} added to your order. Current total: Rs {grand_total}")
+    else:
+        print("Item not found in selected category. Please try again.")
+        continue
+
+    more = input("\nDo you want to order anything else? (yes/no): ").strip().lower()
+    if more != 'yes':
+        break
+
+while True:
+    print("\nYou have ordered the following items:")
+    for item, price in ordered_items:
+        print(f"- {item.title()} : Rs {price}")
+
+    more = input("\nAnything else on your mind? (yes/no): ").strip().lower()
+    if more == "yes":
+        while True:
+            print("\nMenu Categories:")
+            print("1. Savory")
+            print("2. Desserts")
+            print("3. Beverages")
+
+            choice = input("Choose a category by number (1-3): ").strip()
+            if choice not in category_map:
+                print("Invalid category. Please try again.")
+                continue
+
+            category = category_map[choice]
+
+            print(f"\n{category.capitalize()} Menu:")
+            for item, price in menu[category].items():
+                print(f"- {item} : Rs {price}")
+
+            item = input("Enter the item you want to order (or type 'back' to reselect category): ").lower().strip()
+            if item == "back":
+                continue
+
+            if item in menu[category]:
+                price = menu[category][item]
+                ordered_items.append((item, price))
+                grand_total += price
+                print(f"{item.title()} added to your order. Current total: Rs {grand_total}")
+            else:
+                print("Item not found in selected category. Please try again.")
+                continue
+
+            more_inner = input("\nDo you want to order anything else? (yes/no): ").strip().lower()
+            if more_inner != 'yes':
+                break
+    else:
+        break
+
+print(f"\nFinal bill amount: Rs {grand_total}")
+print("Thank you for ordering from Rev's Restro!")
